@@ -1,0 +1,16 @@
+version: '2'
+services:
+  binlog:
+    image: percona:latest
+    restart: until-stopped
+    volumes:
+      - './mysql.binlog.stream.sh:/usr/bin/mysql.binlog.stream.sh:ro'
+      - '/backup/dir/binlog/:/binlog/:rw'
+    command: 'mysql.binlog.stream.sh'
+    environment:
+      MYSQLHOST: ''
+      MYSQLPORT: '3306'
+      MYSQLUSER: ''
+      MYSQLPASS: ''
+      BACKUPDIR: '/binlog'
+      RESPAWN: 60
